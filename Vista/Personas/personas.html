@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Persona</title>
+    <link rel="stylesheet" href="../../Libs/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../Libs/style.css" />
+    <script src="../../Libs/ajax.js"></script>
+    <script src="../../Libs/jquery.min.js"></script>
+    <script src="../../Libs/bootstrap/bootstrap.min.js"></script>
+  </head>
+
+  <body onload="buscar_personas('')">
+    <div class="alert alert-light">
+      <h2 class="text-primary">Gestión de personas</h2>
+      <button class="btn btn-success" onclick="location.href='persona.html'">Nueva</button>
+      <button class="btn btn-success" onclick="reporte()">Reporte</button>
+    </div>
+    <div class="alert alert-info">
+      <h3>Buscar:</h3>
+      <div class="form-row">
+        <label class="col-2">Nombre, Apellido o Cédula</label>
+        <input
+          class="form-control col-5"
+          type="text"
+          id="txt_buscar"
+          name="txt_buscar"
+          onkeyup="buscar_personas(this.value)"
+        />
+      </div>
+    </div>
+    <table id="tabla" name="tabla" class="table table-bordered">
+      <thead class="bg-primary text-light text-center">
+        <th>N.</th>
+        <th>Cédula</th>
+        <th>Apellidos</th>
+        <th>Nombre</th>
+        <th>Editar</th>
+        <th>Eliminar</th>
+      </thead>
+    </table>
+
+    <!-- Modal Eliminar Persona-->
+
+    <div
+      class="modal fade"
+      id="eliminarModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Eliminar Persona</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form action="../../Controlador/personas/eli_persona.php" method="post">
+              <input type="text" hidden id="codigo" name="codigo" />
+              <div class="container">
+                <div class="row">
+                  <label><b>Cédula: </b></label>
+                  <input type="text" id="txt_cedula" name="txt_cedula" class="form-control" />
+                </div>
+                <div class="row">
+                  <label><b>Nombre: </b></label>
+                  <input type="text" id="txt_nombre" name="txt_nombre" class="form-control" />
+                </div>
+                <div class="row">
+                  <label><b>Apellido: </b></label>
+                  <input type="text" id="txt_apellido" name="txt_apellido" class="form-control" />
+                </div>
+                <div class="row mt-2">
+                  <div class="col-12 text-center">
+                    <span class="text-danger text-center h3"
+                      >¿Está seguro de eliminar el registro?</span
+                    >
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-12 text-center">
+                    <button
+                      type="submit"
+                      id="btn_eliminar"
+                      name="btn_eliminar"
+                      class="btn btn-danger text-light"
+                    >
+                      Eliminar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Reporte -->
+    <div
+      class="modal fade"
+      id="reporteModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Reporte</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <iframe src="../../reportes/reporte.pdf" name="visor" id="visor"></iframe>
+          </div>
+          <div class="modal-footer">
+            <a href="../../reportes/reporte.pdf" download="reporte.pdf" class="btn btn-primary"
+              >Descargar PDF</a
+            >
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

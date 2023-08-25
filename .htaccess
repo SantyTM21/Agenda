@@ -1,0 +1,11 @@
+RewriteEngine On
+
+RewriteRule ^lista$ /agenda/Vista/Personas/personas.html
+
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^editar/([0-9]+)$ Vista/Personas/mod_persona.php?valor=$1 [L]
+
+
+ErrorDocument 404 /agenda/Vista/Personas/personas.html
